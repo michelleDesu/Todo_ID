@@ -3,7 +3,7 @@ package se.lexicon.michelle.data;
 public class PersonSequencer {
     private static int personId = 0;
 
-    public static int nextPersonID(){
+    public static int nextPersonId(){
         return personId++;
     }
     public static void reset(){
