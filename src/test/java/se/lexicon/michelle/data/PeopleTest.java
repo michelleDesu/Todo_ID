@@ -1,8 +1,7 @@
 package se.lexicon.michelle.data;
 
-import org.junit.AfterClass;
+
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import se.lexicon.michelle.model.Person;
 
@@ -11,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 
 
 public class PeopleTest {
-    private static People peopleTest;
-    private static Person firstPerson,
+    private  People peopleTest;
+    private  Person firstPerson,
             secondPerson;
 
     @Before
@@ -24,8 +23,8 @@ public class PeopleTest {
         /**
          *  creates names to have easy access to them later on
          */
-        String firstName = "Michelle";
-        String lastName = "Johansson";
+        String  firstName = "Michelle",
+                lastName = "Johansson";
 
         firstPerson = peopleTest.addPerson(firstName, lastName);
         firstName = "Saga";
