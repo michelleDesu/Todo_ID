@@ -78,4 +78,91 @@ public class TodoItems {
         todoArray = new Todo[0];
     }
 
+    //Returns array with objects that has a matching done status.
+
+    /**
+     * creates a new array with the objects matching a certain status
+     * @param doneStatus boolean
+     * @return TodoArray
+     */
+    public Todo[] findByDoneStatus(boolean doneStatus) {
+
+        Todo[] newTodoArray = new Todo[0];
+
+        for (Todo todo : todoArray) {
+            if (todo.isDone() == doneStatus) {
+                newTodoArray = increaseAddArray(newTodoArray, todo);
+
+            }
+        }
+        return newTodoArray;
+    }
+
+    /**
+     * Returns array with objects that has an assignee with a matching personId .
+     * @param personId int
+     * @return TodoArray
+     */
+    public Todo[] findByAssignee(int personId){
+        Todo[] newTodoArray = new Todo[0];
+
+        for(Todo todo : todoArray){
+            //if the id's are the same there is someone assigned to the todoObject
+            if(todo.getAssignee().getPersonId() == personId){
+                newTodoArray = increaseAddArray(newTodoArray, todo);
+            }
+        }
+
+    return newTodoArray;
+    }
+
+    /**
+     * Returns array with objects matching with sent in Person.
+     * @param assignee
+     * @return
+     */
+    public Todo[] findByAssignee(Person assignee){
+        Todo[] newTodoArray = new Todo[0];
+
+        for(Todo todo : todoArray){
+            //checks so that the assignee has the same pesonId, to guarantee that it is the same person
+            if(todo.getAssignee().getPersonId() == assignee.getPersonId()){
+                newTodoArray = increaseAddArray(newTodoArray, todo);
+            }
+        }
+
+        return newTodoArray;
+    }
+
+    /**
+     * checks if there are any unassigned objects,
+     * returns a TodoArray with the unassigned Todos.
+     * @return TodoArray
+     */
+    public Todo[] findUnassignedTodoItems(){
+        Todo[] newTodoArray = new Todo[0];
+
+        for(Todo todo : todoArray){
+            //If getAssignee is empty it is not assigned to anyone.
+            if(todo.getAssignee() == null){
+                newTodoArray = increaseAddArray(newTodoArray, todo);
+            }
+        }
+
+        return newTodoArray;
+    }
+
+    /**
+     * increases the array and adds the new object to new array
+     * used to prevent unnecessary duplication of code.
+     * @param toIncreaseArray TodoArray
+     * @param object TodoObject
+     * @return new increased TodoArray
+     */
+    private Todo[] increaseAddArray(Todo[] toIncreaseArray, Todo object){
+        toIncreaseArray = Arrays.copyOf(toIncreaseArray, toIncreaseArray.length + 1);
+        toIncreaseArray[toIncreaseArray.length -1] = object;
+        return toIncreaseArray;
+    }
+
 }

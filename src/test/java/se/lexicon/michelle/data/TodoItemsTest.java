@@ -2,6 +2,7 @@ package se.lexicon.michelle.data;
 
 import org.junit.Before;
 import org.junit.Test;
+import se.lexicon.michelle.model.Person;
 import se.lexicon.michelle.model.Todo;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -66,7 +67,6 @@ public class TodoItemsTest {
     }
 
    //clear()
-
     @Test
     public void clear_should_clear_the_array() {
         Todo[] expected = new Todo[0];
@@ -75,4 +75,97 @@ public class TodoItemsTest {
 
         assertArrayEquals(expected, actual);
     }
+    
+    //findByDoneStatus
+
+    @Test
+    public void findByDoneStatus_given_true_should_return_array_with_done() {
+        boolean isDone = true;
+        firstTodo.setDone(isDone);
+        Todo thirdTodo = todoTest.addTodo( "This is the third todo");
+        thirdTodo.setDone(isDone);
+
+
+        Todo[] expected = new Todo[2];
+        expected[0] = firstTodo;
+        expected[1] = thirdTodo;
+
+        Todo[] actual = todoTest.findByDoneStatus(isDone);
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void findByDoneStatus_given_false_should_return_array_with_done() {
+        boolean isDone = false;
+        firstTodo.setDone(isDone);
+        Todo thirdTodo = todoTest.addTodo( "This is the third todo");
+        thirdTodo.setDone(isDone);
+
+
+        Todo[] expected = new Todo[3];
+        expected[0] = firstTodo;
+        expected[1] = secondTodo;
+        expected[2] = thirdTodo;
+
+        Todo[] actual = todoTest.findByDoneStatus(isDone);
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void findByAssigneeId_should_return_correct_todoArray() {
+        Person firstPerson = new Person(
+                PersonSequencer.nextPersonId(),
+                "Haldur",
+                "Rind"
+        );
+
+        Todo[] expected = new Todo[2];
+        expected[0] = firstTodo;
+        expected[1] = secondTodo;
+
+        firstTodo.setAssignee(firstPerson);
+        secondTodo.setAssignee(firstPerson);
+
+        int personId = firstPerson.getPersonId();
+
+        Todo[] actual = todoTest.findByAssignee(personId);
+
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void given_assignee_findByAssignee_should_return_correct_todoArray() {
+        Person firstPerson = new Person(
+                PersonSequencer.nextPersonId(),
+                "Saga",
+                "Helga"
+        );
+
+        Todo[] expected = new Todo[2];
+        expected[0] = firstTodo;
+        expected[1] = secondTodo;
+
+        firstTodo.setAssignee(firstPerson);
+        secondTodo.setAssignee(firstPerson);
+
+        Todo[] actual = todoTest.findByAssignee(firstPerson);
+
+        assertArrayEquals(expected, actual);
+
+    }
+    @Test
+    public void findUnassignedTodoItems_should_return_unassigned_todo_todoArray() {
+
+        Todo[] expected = new Todo[2];
+        expected[0] = firstTodo;
+        expected[1] = secondTodo;
+
+        Todo[] actual = todoTest.findUnassignedTodoItems();
+
+        assertArrayEquals(expected, actual);
+
+    }
+
 }
