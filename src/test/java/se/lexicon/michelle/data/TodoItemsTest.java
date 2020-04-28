@@ -18,7 +18,7 @@ public class TodoItemsTest {
         todoTest.clear();
         TodoSequencer.reset();
 
-        /**
+        /*
          *  creates todos to have easy access to them later on
          */
         String firstDescription = "This is my first todo",
