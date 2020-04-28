@@ -88,4 +88,19 @@ public class PeopleTest {
 
     }
 
+    @Test
+    public void given_todoId_remove_todo_with_specified_id_return_new_array() {
+        String  firstName = "Haldur",
+                lastName = "Rind";
+
+        Person thirdPerson = peopleTest.addPerson(firstName, lastName);
+
+        Person[] expected = new Person[2];
+        expected[0] = firstPerson;
+        expected[1] = thirdPerson;
+        Person[] actual = peopleTest.removeById(1);
+        assertArrayEquals(expected, actual);
+
+    }
+
 }

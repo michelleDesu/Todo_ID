@@ -168,4 +168,15 @@ public class TodoItemsTest {
 
     }
 
+    @Test
+    public void given_todoId_remove_todo_with_specified_id_return_new_array() {
+        Todo thirdTodo = todoTest.addTodo("This is my third description" );
+
+        Todo[] expected = new Todo[2];
+        expected[0] = firstTodo;
+        expected[1] = thirdTodo;
+        Todo[] actual = todoTest.removeById(1);
+        assertArrayEquals(expected, actual);
+
+    }
 }

@@ -153,6 +153,55 @@ public class TodoItems {
     }
 
     /**
+     * Remove the object with specified id from todoArray
+     * @param todoId int
+     * @return the new todoArray.
+     */
+    public Todo[] removeById(final int todoId){
+        Todo[]  arrayBeforeTodoId   = new Todo[0],
+                arrayAfterTodoId    = new Todo[0],
+                newTodoArray        = new Todo[0];
+
+        boolean isFound = false;
+        for (Todo todo : todoArray) {
+            if (todo.getTodoId() == todoId) {
+                isFound = true;
+            } else if (!isFound) {
+                /*
+                every object in the array before the given ID is put in arrayBeforeTodoId
+                 */
+                arrayBeforeTodoId = increaseAddArray(arrayBeforeTodoId, todo);
+            } else {
+                /*
+                 every object in the array after the given ID is put in arrayAfterTodoId
+                */
+                arrayAfterTodoId = increaseAddArray(arrayAfterTodoId, todo);
+            }
+        }
+
+        /*
+        To remove the object with the given ID combine the two arrays
+        arrayBeforeTodoId and arrayAfterTodoId
+         */
+        newTodoArray = Arrays.copyOf(
+                        arrayBeforeTodoId,
+                arrayBeforeTodoId.length + arrayAfterTodoId.length
+                );
+
+                System.arraycopy(
+                arrayAfterTodoId,            //source array
+                0,                    //copy from index
+                newTodoArray,               // target array
+                arrayBeforeTodoId.length,   //starting position in the destination data
+                arrayAfterTodoId.length    //number elements to copy from last array
+                );
+
+        todoArray = newTodoArray;
+
+        return todoArray;
+    }
+
+    /**
      * increases the array and adds the new object to new array
      * used to prevent unnecessary duplication of code.
      * @param toIncreaseArray TodoArray

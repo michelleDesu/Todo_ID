@@ -1,6 +1,7 @@
 package se.lexicon.michelle.data;
 
 import se.lexicon.michelle.model.Person;
+import se.lexicon.michelle.model.Todo;
 
 import java.util.Arrays;
 
@@ -76,4 +77,68 @@ public class People {
     public void clear(){
         personArray = new Person[0];
     }
+
+    /**
+     * Remove the object with specified id from personArray
+     * @param personId int
+     * @return the new personArray.
+     */
+    public Person[] removeById(final int personId){
+        Person[]  arrayBeforeTodoId   = new Person[0],
+                arrayAfterTodoId    = new Person[0],
+                newTodoArray        = new Person[0];
+
+        boolean isFound = false;
+
+        for ( Person person : personArray) {
+            if (person.getPersonId() == personId) {
+                isFound = true;
+            } else if (!isFound) {
+                /*
+                every object in the array before the given ID is put in arrayBeforeTodoId
+                 */
+                arrayBeforeTodoId = increaseAddArray(arrayBeforeTodoId, person);
+            } else {
+                /*
+                 every object in the array after the given ID is put in arrayAfterTodoId
+                */
+                arrayAfterTodoId = increaseAddArray(arrayAfterTodoId, person);
+            }
+        }
+
+        /*
+        To remove the object with the given ID combine the two arrays
+        arrayBeforeTodoId and arrayAfterTodoId
+         */
+        newTodoArray = Arrays.copyOf(
+                arrayBeforeTodoId,
+                arrayBeforeTodoId.length + arrayAfterTodoId.length
+        );
+
+        System.arraycopy(
+                arrayAfterTodoId,            //source array
+                0,                    //copy from index
+                newTodoArray,               // target array
+                arrayBeforeTodoId.length,   //starting position in the destination data
+                arrayAfterTodoId.length    //number elements to copy from last array
+        );
+
+        personArray = newTodoArray;
+
+        return personArray;
+    }
+
+    /**
+     * increases the array and adds the new object to new array
+     * used to prevent unnecessary duplication of code.
+     * @param toIncreaseArray Person[]
+     * @param object Person
+     * @return new increased personArray
+     */
+    private Person[] increaseAddArray(Person[] toIncreaseArray, Person object){
+        toIncreaseArray = Arrays.copyOf(toIncreaseArray, toIncreaseArray.length + 1);
+        toIncreaseArray[toIncreaseArray.length -1] = object;
+        return toIncreaseArray;
+    }
+
 }
