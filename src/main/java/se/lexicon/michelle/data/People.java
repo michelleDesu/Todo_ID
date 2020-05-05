@@ -60,7 +60,7 @@ public class People {
          */
         Person[] newPersonsArray = Arrays.copyOf(personArray,personArray.length + 1);
         int offSet = personArray.length;
-        for(int i = offSet, j= 0; i < newPersonsArray.length; i++,j++){
+        for(int i = offSet; i < newPersonsArray.length; i++){
             newPersonsArray[i] = personToAdd;
         }
         /*
