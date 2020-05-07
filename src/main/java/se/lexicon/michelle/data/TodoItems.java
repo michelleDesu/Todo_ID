@@ -58,7 +58,7 @@ public class TodoItems {
          */
          Todo[] newTodoArray = Arrays.copyOf(todoArray, todoArray.length+1);
          int offset = todoArray.length;
-         for (int i = offset, j= 0; i < newTodoArray.length; i++,j++){
+         for (int i = offset; i < newTodoArray.length; i++){
              newTodoArray[i] = todoToAdd;
          }
          /*
